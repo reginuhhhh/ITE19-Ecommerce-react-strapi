@@ -1,12 +1,14 @@
-import React from "react";
-import { Button } from "reactstrap";
+import React, { useState } from "react";
+import { Button, Spinner } from "reactstrap";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 
 const Checkout = ({ products, token }) => {
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+  const [loading, setLoading] = useState(false); // State for loading spinner
 
   const handlePayment = async () => {
+    setLoading(true); // Show spinner when the process starts
     const headerConfig = token
       ? {
           headers: {
@@ -28,14 +30,27 @@ const Checkout = ({ products, token }) => {
       });
     } catch (error) {
       console.log(error);
+      setLoading(false); // Hide spinner if there's an error
     }
   };
 
   return (
-    <div class="d-grid gap-2 py-2">
-    <Button color="danger" className="fw-bold p-2" onClick={handlePayment}>
-      Checkout
-    </Button>
+    <div className="d-grid gap-2 py-2">
+      <Button
+        color="danger"
+        className="fw-bold p-2"
+        onClick={handlePayment}
+        disabled={loading} // Disable the button while loading
+      >
+        {loading ? (
+          <>
+            <Spinner size="sm" className="me-2" />
+            Processing...
+          </>
+        ) : (
+          "Checkout"
+        )}
+      </Button>
     </div>
   );
 };

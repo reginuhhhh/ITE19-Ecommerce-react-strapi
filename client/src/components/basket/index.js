@@ -46,7 +46,7 @@ const Basket = ({ basket, token, removeFromBasket, updateBasketItem }) => {
         </div>
         {!basket.length ? (
             <div className="empty-basket">
-                <h3>There is no product added to the basket yet.</h3>
+                <h3>Basket is empty...</h3>
                 <Button
                     color="outline-danger"
                     onClick={() => {

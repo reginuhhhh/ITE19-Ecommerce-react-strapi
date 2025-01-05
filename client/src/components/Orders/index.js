@@ -30,7 +30,7 @@ const Orders = ({ orders }) => {
               ))}
             </>
           ) : (
-            <h2>No orders available.</h2>
+            <h3 className="text-center mt-5">You haven't ordered any products yet...</h3>
           )}
         </div>
     );  

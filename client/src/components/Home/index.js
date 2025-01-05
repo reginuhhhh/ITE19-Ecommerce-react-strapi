@@ -15,10 +15,10 @@ const Home = () => {
 
     const priceRanges = [
         { label: "All Prices", value: "" },
-        { label: "$0 - $50", value: "0-50" },
-        { label: "$51 - $100", value: "51-100" },
-        { label: "$101 - $200", value: "101-200" },
-        { label: "$201 and above", value: "201-" }
+        { label: "$1 - $10", value: "1-10" },
+        { label: "$11 - $20", value: "11-20" },
+        { label: "$21 - $30", value: "21-30" },
+        { label: "$31 and above", value: "31-" }
     ];
 
     const sortOptions = [
@@ -71,9 +71,9 @@ const Home = () => {
         } else if (sortOption === "price-desc") {
             return [...products].sort((a, b) => b.attributes.price - a.attributes.price);
         } else if (sortOption === "date-asc") {
-            return [...products].sort((a, b) => new Date(a.attributes.date) - new Date(b.attributes.date));
+            return [...products].sort((a, b) => new Date(a.attributes.createdAt) - new Date(b.attributes.createdAt));
         } else if (sortOption === "date-desc") {
-            return [...products].sort((a, b) => new Date(b.attributes.date) - new Date(a.attributes.date));
+            return [...products].sort((a, b) => new Date(b.attributes.createdAt) - new Date(a.attributes.createdAt));
         }
         return products;
     };
