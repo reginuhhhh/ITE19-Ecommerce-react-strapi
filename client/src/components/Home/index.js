@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useProducts } from "./useProducts";
 import { Col, Row, Input } from "reactstrap";
 import Product from "./Product";
@@ -12,6 +12,7 @@ const Home = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedPriceRange, setSelectedPriceRange] = useState('');
     const [sortOption, setSortOption] = useState('');
+    const [categoryTitle, setCategoryTitle] = useState('All Categories');
 
     const priceRanges = [
         { label: "All Prices", value: "" },
@@ -22,8 +23,6 @@ const Home = () => {
     ];
 
     const sortOptions = [
-        { label: "Featured", value: "featured" },
-        { label: "Best selling", value: "best-selling" },
         { label: "Alphabetically, A-Z", value: "name-asc" },
         { label: "Alphabetically, Z-A", value: "name-desc" },
         { label: "Price, low to high", value: "price-asc" },
@@ -37,8 +36,17 @@ const Home = () => {
     };
 
     const handleCategoryChange = (e) => {
-        setSelectedCategory(e.target.value);
+        const categoryId = e.target.value;
+        setSelectedCategory(categoryId);
+    
+        if (categoryId === "") {
+            setCategoryTitle("All Categories");
+        } else {
+            const selectedCat = categories.find(category => String(category.id) === categoryId);
+            setCategoryTitle(selectedCat ? selectedCat.attributes.name : "All Categories");
+        }
     };
+    
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value.toLowerCase());
@@ -60,9 +68,7 @@ const Home = () => {
     };
 
     const sortProducts = (products) => {
-        if (sortOption === "best-selling") {
-            return [...products].sort((a, b) => b.attributes.sales - a.attributes.sales);
-        } else if (sortOption === "name-asc") {
+        if (sortOption === "name-asc") {
             return [...products].sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
         } else if (sortOption === "name-desc") {
             return [...products].sort((a, b) => b.attributes.name.localeCompare(a.attributes.name));
@@ -81,7 +87,7 @@ const Home = () => {
     return (
         <div>
             <div className="home">
-                <h2 style={{ textAlign: "center" }}>Enjoy our sales!</h2>
+                <h2 style={{ textAlign: "center" }}>{categoryTitle}</h2>
                 <div
                     style={{
                         display: "flex",
@@ -96,7 +102,7 @@ const Home = () => {
                         <FaSearch style={{ marginRight: "10px" }} />
                         <Input
                             type="text"
-                            placeholder="Search products..."
+                            placeholder="What are you looking for?"
                             value={searchTerm}
                             onChange={handleSearchChange}
                         />

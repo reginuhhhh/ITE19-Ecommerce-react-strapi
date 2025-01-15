@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useProductView } from "./useProductView";
-import { 
-    Button, 
-    Card, 
-    CardBody, 
-    CardImg, 
-    CardSubtitle, 
-    CardText, 
-    CardTitle, 
-    Col, 
-    FormGroup, 
-    Input, 
-    Label, 
-    Row, 
-    Spinner 
+import {
+    Button,
+    Card,
+    CardBody,
+    CardImg,
+    CardSubtitle,
+    CardText,
+    CardTitle,
+    Col,
+    FormGroup,
+    Input,
+    Label,
+    Row,
+    Spinner
 } from "reactstrap";
 import ProductReview from "../ProductReview";
 import { Rating } from "react-simple-star-rating";
@@ -21,7 +21,7 @@ import { Rating } from "react-simple-star-rating";
 const ProductView = ({ token, addToBasket }) => {
     const {
         rating,
-        product, 
+        product,
         getImage,
         setRating,
         description,
@@ -41,7 +41,7 @@ const ProductView = ({ token, addToBasket }) => {
     }
 
     const { id, attributes } = product;
-    const quantity = Array.from(Array(Number(attributes.quantity)).keys());
+    const quantity = Array.from({ length: Number(attributes.quantity) }, (_, i) => i + 1);
 
     return (
         <div className="product-details mt-5">
@@ -68,8 +68,8 @@ const ProductView = ({ token, addToBasket }) => {
                             />
                             <span>{
                                 rating.count > 1
-                                ? `${rating.count} ratings`
-                                : `${rating.count} rating`
+                                    ? `${rating.count} ratings`
+                                    : `${rating.count} rating`
                             }</span>
                         </div>
 
@@ -81,8 +81,8 @@ const ProductView = ({ token, addToBasket }) => {
                             <CardSubtitle>Sizes:</CardSubtitle>
                             <div className="sizes">
                                 {attributes.sizes.map((size) => (
-                                    <span 
-                                        key={size.name} 
+                                    <span
+                                        key={size.name}
                                         className={selectedSize === size.name ? "active" : ""}
                                         onClick={() => setSelectedSize(size.name)}
                                     >
@@ -95,14 +95,14 @@ const ProductView = ({ token, addToBasket }) => {
                             <CardSubtitle>Color: {selectedColor}</CardSubtitle>
                             <div className="colours">
                                 {attributes.colours.map((colour) => (
-                                    <span 
-                                        key={colour.name} 
+                                    <span
+                                        key={colour.name}
                                         className={selectedColor === colour.name ? "active" : ""}
                                         onClick={() => setSelectedColor(colour.name)}
                                     >
-                                        <img 
-                                            src={`http://localhost:1337${getImage(colour.name)}`} 
-                                            alt={colour.name} 
+                                        <img
+                                            src={`http://localhost:1337${getImage(colour.name)}`}
+                                            alt={colour.name}
                                         />
                                     </span>
                                 ))}
@@ -119,14 +119,16 @@ const ProductView = ({ token, addToBasket }) => {
                                     onChange={handleQuantityChange}
                                 >
                                     {quantity.map((number) => (
-                                        <option key={number}>{number}</option>
-                                    ))}                       
+                                        <option key={number} value={number}>
+                                            {number}
+                                        </option>
+                                    ))}
                                 </Input>
                             </FormGroup>
                         </div>
                         <div className="d-grid gap-2">
-                            <Button 
-                                color="outline-danger" 
+                            <Button
+                                color="outline-danger"
                                 className="p-2 fw-bold"
                                 onClick={() => {
                                     setIsAddingToBasket(true);
@@ -147,11 +149,11 @@ const ProductView = ({ token, addToBasket }) => {
                     </CardBody>
                 </Col>
             </Row>
-            <ProductReview 
-                token={token} 
-                productId={id} 
-                setRating={setRating} 
-                setgetLatestProductUpdate={setgetLatestProductUpdate} 
+            <ProductReview
+                token={token}
+                productId={id}
+                setRating={setRating}
+                setgetLatestProductUpdate={setgetLatestProductUpdate}
             />
         </div>
     );

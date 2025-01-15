@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle } from "reactstrap";
+import { Card, CardImg, CardSubtitle, CardTitle } from "reactstrap";
 
 const Product = ({ product, orderCard }) => {
     const image = orderCard ? {} : product.attributes.images.data[0].attributes;
@@ -39,17 +39,24 @@ const Product = ({ product, orderCard }) => {
         <Card
             id={`product-${product.id}`}
             className={`product-card pt-3 ${isVisible ? "fade-in" : "fade-out"}`}
-            style={{ border: "none", backgroundColor: "white", transition: "opacity 0.5s ease-in-out" }}
+            style={{
+                border: "none",
+                backgroundColor: "white",
+                transition: "opacity 0.5s ease-in-out",
+                opacity: isVisible ? 1 : 0,
+            }}
         >
-            <div>
-                <CardImg
-                    top
-                    width="100%"
-                    src={`http://localhost:1337${orderCard ? product.imageUrl : image.url}`}
-                    alt={image.name}
-                />
-            </div>
-            <div className="pt-3">
+            <CardImg
+                top
+                width="100%"
+                src={`http://localhost:1337${orderCard ? product.imageUrl : image.url}`}
+                alt={image.name}
+                style={{
+                    transition: "opacity 0.5s ease-in-out",
+                    opacity: isVisible ? 1 : 0,
+                }}
+            />
+            <div className="pt-3" style={{ transition: "opacity 0.5s ease-in-out", opacity: isVisible ? 1 : 0 }}>
                 <CardTitle>
                     {orderCard ? product.name : product.attributes.name}
                 </CardTitle>

@@ -13,6 +13,7 @@ import { Protector, userData } from "./helpers";
 import Orders from "./components/Orders";
 import useOrders from "./components/Orders/useOrders";
 import Profile from "./components/Profile";
+import AdminDashboard from "./components/AdminDashboard";
 
 function App() {
   const { jwt, username } = userData();
@@ -60,6 +61,7 @@ function App() {
                 />
               }
             />
+            <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
           <ToastContainer />
         </Container>

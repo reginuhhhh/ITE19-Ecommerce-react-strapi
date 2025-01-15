@@ -22,7 +22,7 @@ const CustomNav = ({ basketItems, isLoggedIn, username }) => {
 const loginLogout = isLoggedIn ? (
     <NavLink tag={Link} to="/logout">Logout</NavLink>
   ) : (
-    <NavLink tag={Link} to="/login" >Login</NavLink>
+    <NavLink tag={Link} to="/login" className='fs-5'>Login</NavLink>
   );  
 
     return (

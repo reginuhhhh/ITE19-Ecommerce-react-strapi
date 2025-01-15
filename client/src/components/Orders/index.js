@@ -15,13 +15,13 @@ const Orders = ({ orders }) => {
         <div className="orders">
           {orders.length ? (
             <>
-              <h2>Your orders:</h2>
+              <h2 className="text-center py-3">My orders</h2>
               {orders.map((order) => (
                 <div key={order.createdAt}>
-                  <h3>Order date: {getDateTime(order.createdAt)}</h3>
+                  <h5 className="mt-3">Order date: {getDateTime(order.createdAt)}</h5>
                   <Row>
                     {order.orders.map((product) => (
-                      <Col sm="12" md="4" key={product.id}>
+                      <Col sm="6" md="4" key={product.id}>
                         <Product orderCard product={product} />
                       </Col>
                     ))}
